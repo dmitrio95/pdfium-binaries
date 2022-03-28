@@ -6,13 +6,14 @@ BUILD=${PDFium_BUILD_DIR:-$SOURCE/out}
 TARGET_CPU=${PDFium_TARGET_CPU:?}
 TARGET_ENVIRONMENT=${PDFium_TARGET_ENVIRONMENT:-default}
 ENABLE_V8=${PDFium_ENABLE_V8:-false}
-IS_DEBUG=${PDFium_IS_DEBUG:-false}
+IS_DEBUG="false"
+IS_RELEASE="true"
 
 mkdir -p "$BUILD"
 
 (
   echo "is_debug = $IS_DEBUG"
-  echo "pdf_is_standalone = true"
+  echo "pdf_is_standalone = false"
   echo "pdf_use_partition_alloc = false"
   echo "target_cpu = \"$TARGET_CPU\""
   echo "target_os = \"$OS\""
@@ -26,6 +27,9 @@ mkdir -p "$BUILD"
     echo "v8_enable_i18n_support = false"
   fi
 
+  echo "is_official_build = $IS_RELEASE"
+  echo "use_custom_libcxx = false"
+
   case "$OS" in
     android)
       echo "clang_use_chrome_plugins = false"
@@ -34,9 +38,11 @@ mkdir -p "$BUILD"
     ios)
       [ -n "$TARGET_ENVIRONMENT" ] && echo "target_environment = \"$TARGET_ENVIRONMENT\""
       echo "ios_enable_code_signing = false"
-      echo "use_blink = true"
+      echo "use_blink = false"
       [ "$ENABLE_V8" == "true" ] && [ "$TARGET_CPU" == "arm64" ] && echo 'arm_control_flow_integrity = "none"'
       echo "clang_use_chrome_plugins = false"
+      echo 'ios_deployment_target = "13.0"'
+      echo 'enable_ios_bitcode = false'
       ;;
     linux)
       echo "clang_use_chrome_plugins = false"
