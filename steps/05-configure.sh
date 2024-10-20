@@ -28,6 +28,7 @@ mkdir -p "$BUILD"
   fi
 
   echo "is_official_build = $IS_RELEASE"
+  echo "chrome_pgo_phase = 0"
   echo "use_custom_libcxx = false"
 
   case "$OS" in
@@ -38,7 +39,7 @@ mkdir -p "$BUILD"
     ios)
       [ -n "$TARGET_ENVIRONMENT" ] && echo "target_environment = \"$TARGET_ENVIRONMENT\""
       echo "ios_enable_code_signing = false"
-      echo "use_blink = false"
+      echo "use_blink = true"
       [ "$ENABLE_V8" == "true" ] && [ "$TARGET_CPU" == "arm64" ] && echo 'arm_control_flow_integrity = "none"'
       echo "clang_use_chrome_plugins = false"
       echo 'ios_deployment_target = "13.0"'
