@@ -144,6 +144,7 @@ jobs:
       target_os: ios
       target_cpu: arm64
       enable_v8: false
+      target_environment: device
 
   ios_arm64_v8:
     name: iOS ARM64 V8
@@ -157,6 +158,7 @@ jobs:
       target_os: ios
       target_cpu: arm64
       enable_v8: true
+      target_environment: device
 
   ios_x64:
     name: iOS x64
@@ -168,6 +170,7 @@ jobs:
       target_os: ios
       target_cpu: x64
       enable_v8: false
+      target_environment: simulator
 
   ios_x64_v8:
     name: iOS x64 V8
@@ -181,6 +184,7 @@ jobs:
       target_os: ios
       target_cpu: x64
       enable_v8: true
+      target_environment: simulator
 
   linux_arm:
     name: Linux ARM
